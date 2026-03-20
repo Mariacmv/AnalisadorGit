@@ -8,5 +8,43 @@ estrutura ou marcação, sejam seguidas.
 (como enviar uma mensagem no Slack após um commit) ou registro (armazenamento de metadados de commit).
 
 E para outras situações como em um pull?
+Não existe um hook direto “pre-pull”.
+Mas existem:
+post-merge → depois de um merge (inclui pull)
+post-checkout → troca de branch
 
 Configurando hooks:
+Para encontrar é preciso acessar a raiz do projeto e procurar por arquivos ocultos, dentre eles: 
+.git/hooks/
+Dentro haverá diversos ganchos padrão - samples e para utilizá-los é preciso retirar a extensão
+.sample. Exemplo: mv .git/hooks/pre-commit.sample .git/hooks/pre-commit (retirando do hook pre-commit)
+Depois tornar executável com: chmod +x .git/hooks/pre-commit
+
+Já para criar um hook personalizado:
+- nano .git/hooks/commit-msg
+- crie o script, ex:  #!/bin/sh
+echo "✅ Commit message hook triggered"
+- deixe executável
+
+Para desativá-los rapidamente basta adicionar .off. Exemplo: mude pre-commit para pre-commit.off
+Para desativá-los uma vez, há especificações, como: git commit --no-verify e git push --no-verify
+Para desativá-los globalmente: aponte o git para uma pasta vazia, como: git config core.hooksPath /dev/null
+
+**Caso adicione-os globalmente, então todos os projetos terão esses novos hooks
+*Use o encadeamento de ganchos para executar vários ganchos em um único evento git.
+*Você também pode deixar a lógica do hook mais dinâmica com arquivos de configuração (JSON ou YAML). 
+Em vez de codificar lógicas diferentes para cada repositório, seu script de hook pode ler o arquivo 
+de configuração desse repositório e aplicar as regras corretas automaticamente.
+*Se você quiser mais controle, use uma estrutura como o pre-commit, onde você declara em um arquivo 
+de configuração quais ganchos são executados em qual estágio. Você também pode adicionar lógica 
+condicional, como executar hooks apenas em determinados branches, pular hooks com variáveis ou até 
+mesmo adicionar condições baseadas em tempo. Isso deixa seus scripts de gancho dinâmicos e adaptados 
+aos fluxos de trabalho reais.
+
+Não esquecer que os hooks também devem ser protegidos contra acessos não autorizados:
+Hooks NÃO são versionados ou seja: cada dev precisa configurar manualmente, eles não vão pro 
+repositório, podem ser ignorados facilmente
+"Hooks do Git são executados localmente e não são versionados por padrão, o que permite que sejam 
+ignorados ou desativados, reduzindo sua eficácia como mecanismo de segurança isolado."
+
+Fluxo do projeto: pre-commit → chamar Python → analisar arquivos → bloquear se necessário
