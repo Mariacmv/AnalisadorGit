@@ -1,0 +1,12 @@
+fonte: https://www.datacamp.com/pt/tutorial/git-hooks-complete-guide
+
+São executados localmente. Interessantes para o analisador - do lado do cliente:
+*commit-msg*: Esse gancho rola logo depois que a mensagem de commit é salva, mas antes que o Git termine
+o commit. É a sua última chance de garantir que as regras das mensagens de commit, como formatação, 
+estrutura ou marcação, sejam seguidas.
+*pós-confirmação*: É executado depois que um commit é criado. É frequentemente usado para notificações 
+(como enviar uma mensagem no Slack após um commit) ou registro (armazenamento de metadados de commit).
+
+E para outras situações como em um pull?
+
+Configurando hooks:
