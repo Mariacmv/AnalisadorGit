@@ -1,0 +1,19 @@
+{
+  "project_name": "Scanner",
+  "version": "1.0",
+  "debug_mode": true,
+  "database": {
+    "host": "localhost",
+    "port": 5432,
+    "user": "admin",
+    "pass": "WEBMASTER20@"
+  },
+  "api_services": {
+    "google_maps": "AIzaSyA1234567890-ABCDE1234567890",
+    "storage_token": "ZGE2MzhhYWQyMzBlMTllZjlhYmYwZmYxZjU2M2M3M2FmMWFiZGZmNTdmMTcwMDA5Zjc1ZDFiNzkyOTZlMmY0ZA==",
+    "public_key": "PUB_778899"
+  },
+  "mailing_list": [
+    "admin@exemplo.com"
+  ]
+}
